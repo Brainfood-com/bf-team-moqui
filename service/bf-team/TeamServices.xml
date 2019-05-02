@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+    <service verb="isUserIn" noun="Team" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="isUserInTeam">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+            <parameter name="memberPartyId" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="isUserInTeam" Stype="Boolean" required="true"/>
+        </out-parameters>
+    </service>
+    <service verb="create" noun="Team" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="createTeam">
+        <in-parameters>
+            <parameter name="teamName" type="String" required="true"/>
+            <parameter name="memberPartyId" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyId" type="String" required="true"/>
+        </out-parameters>
+    </service>
+    <service verb="get" noun="TeamMemberCount" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="getTeamMemberCount">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="memberCount" type="Integer" required="true"/>
+        </out-parameters>
+    </service>
+    <service verb="read" noun="Team" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="readTeam">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+            <parameter name="teamName" type="String" required="true"/>
+            <parameter name="owner" type="Map&lt;String, Object&gt;String" required="true"/>
+            <parameter name="members" type="List&lt;Map&lt;String, Object&gt;&gt;" required="true"/>
+            <parameter name="teamPartyRoles" type="List&lt;String&gt;" required="true"/>
+												<!-- <parameter name="_parties" type="Collection&lt;Map&lt;String, Object&gt;&gt;" required="true"/> -->
+        </out-parameters>
+    </service>
+
+
+    <service verb="read" noun="TeamPartyRoles" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="readTeamPartyRoles">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="teamPartyRoles" type="List&lt;Map&lt;String, String&gt;&gt;" required="true"/>
+        </out-parameters>
+    </service>
+
+
+    <service verb="create" noun="TeamMember" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="createTeamMember">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+            <parameter name="memberPartyId" type="String" required="true"/>
+            <parameter name="roleTypes" type="Collection&lt;String&gt;" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="update" noun="TeamMember" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="updateTeamMember">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+            <parameter name="memberPartyId" type="String" required="true"/>
+            <parameter name="roleTypes" type="Collection&lt;String&gt;" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="delete" noun="TeamMember" type="script" location="component://bf-team/service/Team.groovy" authenticate="false" method="deleteTeamMember">
+        <in-parameters>
+            <parameter name="teamPartyId" type="String" required="true"/>
+            <parameter name="memberPartyId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+
+    <service verb="invite" noun="User" type="script" location="component://bf-team/service/Invite.groovy" authenticate="false" method="inviteUser">
+        <in-parameters>
+            <parameter name="httpHostname" type="String"/>
+            <parameter name="httpScheme" type="String"/>
+            <parameter name="firstName" type="String"/>
+            <parameter name="lastName" type="String"/>
+            <parameter name="emailAddress" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+            <parameter name="currentStatusId" type="String" required="true"/>
+        </out-parameters>
+    </service>
+    <service verb="checkExisting" noun="User" type="script" location="component://bf-team/service/Invite.groovy" method="checkExistingUser">
+        <!-- partyId = currentUser -->
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="attachInviteTo" noun="OwnerTeam" type="script" location="component://bf-team/service/Invite.groovy" authenticate="false" method="attachInviteToOwnerTeam">
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+            <parameter name="partyId" type="String"/>
+        </in-parameters>
+    </service>
+    <service verb="associate" noun="CommunicationEvents" type="script" location="component://bf-team/service/Invite.groovy" method="associateCommunicationEvents">
+        <!-- partyId = currentUser -->
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="attachInviteeTo" noun="Team" type="script" location="component://bf-team/service/Invite.groovy" method="attachInviteeToTeam">
+        <!-- partyId = currentUser -->
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="send" noun="InviteEmail" type="script" location="component://bf-team/service/Invite.groovy" method="sendInviteEmail">
+        <!-- partyId = currentUser -->
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="send" noun="JoinTeamEmail" type="script" location="component://bf-team/service/Invite.groovy" method="sendJoinTeamEmail">
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+        </in-parameters>
+    </service>
+
+    <!-- group invite:create -->
+    <service verb="create" noun="Invite" type="inline" authenticate="false">
+        <actions>
+            <service-invoke name="bf-team.invite#User" in-map="context" result-to-context="true"/>
+            <service-invoke name="bf-team.attachInviteTo#OwnerTeam" in-map="context" result-to-context="true"/>
+        </actions>
+    </service>
+    <service verb="update" noun="Invite" type="script" location="component://bf-team/service/Invite.groovy" method="updateInvite">
+        <in-parameters>
+            <parameter name="workEffortId" type="String" required="true"/>
+            <parameter name="firstName" type="String"/>
+            <parameter name="lastName" type="String"/>
+            <parameter name="emailAddress" type="String"/>
+            <parameter name="currentStatusId" type="String"/>
+        </in-parameters>
+        <required-permissions join-type="AND">
+            <check-permission permission="INVITE" action="UPDATE"/>
+        </required-permissions>
+    </service>
+    <service verb="read" noun="Invites" type="script" location="component://bf-team/service/Invite.groovy" method="readInvites">
+        <out-parameters>
+            <parameter name="workEfforts" type="List&lt;String&gt;" required="true"/>
+        </out-parameters>
+    </service>
+</services>
