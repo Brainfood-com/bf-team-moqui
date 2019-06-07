@@ -17,15 +17,15 @@ along with this software (see the LICENSE.md file). If not, see
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-2.1.xsd" name="bf-team" displayName="BF Team REST API" version="1.0.0" description="Brainfood Team">
 
- <resource name="team">
-  <id name="teamPartyId">
+ <resource name="team" require-authentication="anonymous-all">
+  <id name="partyId" require-authentication="anonymous-all">
    <method type="get">
     <service name="bf-team.TeamServices.read#Team"/>
    </method>
    <resource name="member">
     <id name="memberPartyId">
      <method type="put">
-      <service name="bf-team.TeamServices.update#TeamMember"/>
+      <service name="bf-team.TeamServices.set#TeamMember"/>
      </method>
      <method type="delete">
       <service name="bf-team.TeamServices.delete#TeamMember"/>
@@ -35,8 +35,19 @@ along with this software (see the LICENSE.md file). If not, see
   </id>
  </resource>
 
- <resource name="invite">
-  <method type="post">
+ <resource name="teams" require-authentication="anonymous-all">
+  <method type="get">
+   <service name="bf-team.TeamServices.readAll#Teams"/>
+  </method>
+  <id name="partyId" require-authentication="anonymous-all">
+   <method type="get">
+    <service name="bf-team.TeamServices.readAll#Teams"/>
+   </method>
+  </id>
+ </resource>
+
+ <resource name="invite" require-authentication="anonymous-all">
+  <method type="post" require-authentication="anonymous-all">
    <service name="bf-team.TeamServices.create#Invite"/>
   </method>
   <id name="workEffortId">

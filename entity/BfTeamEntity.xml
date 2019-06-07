@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+ <extend-entity entity-name="RoleType" package="mantle.party">
+  <seed-data>
+   <mantle.party.RoleType roleTypeId="BF-TEAM-GROUP" description="Team Group"/>
+  </seed-data>
+ </extend-entity>
+ <extend-entity entity-name="WorkEffort" package="mantle.work.effort">
+  <seed-data>
+   <moqui.basic.Enumeration enumId="BfTeamInvite" enumTypeId="WorkEffortType" description="Bf Team Invite"/>
+  </seed-data>
+ </extend-entity>
+ <extend-entity entity-name="WorkEffortContent" package="mantle.work.effort">
+  <seed-data>
+   <moqui.basic.Enumeration enumId="BfTeamInviteMetaData" enumTypeId="WorkEffortContentType" description="Bf Team Invite MetaData"/>
+  </seed-data>
+ </extend-entity>
+</entities>
+

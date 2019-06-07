@@ -1,0 +1,7 @@
+<eecas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-eca-2.1.xsd">
+    <eeca entity="mantle.work.effort.WorkEffortContactMech" on-create="true" on-update="true">
+        <condition><expression>contactMechPurposeId == 'EmailPrimary'</expression></condition>
+        <actions><service-call name="bf-team.TeamServices.checkExisting#User" in-map="context"/></actions>
+    </eeca>
+</eecas>
+
